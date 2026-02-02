@@ -471,6 +471,12 @@ Each account has a corresponding "transfer payee" already created in the system.
 
 Get all payees.
 
+#### `getCommonPayees`
+
+<Method name="getCommonPayees" args={[]} returns="Promise<Payee[]>" />
+
+Get common payees that appear frequently in transactions.
+
 #### `createPayee`
 
 <Method name="createPayee" args={[{ name: 'payee', type: 'Payee' }]} returns="Promise<id>" />
@@ -572,9 +578,9 @@ Get all rules.
 
 #### `getPayeeRules`
 
-<Method name="getPayeeRules" args={[{ name: 'payeeId', type: "id" }]} returns="Promise<PayeeRule[]>" />
+<Method name="getPayeeRules" args={[{ name: 'payeeId', type: "id" }]} returns="Promise<Rule[]>" />
 
-Get all payee rules for `payeeId`.
+Get all rules associated with `payeeId`.
 
 #### `createRule`
 
@@ -584,9 +590,9 @@ Create a rule. Returns the new rule, including the `id`.
 
 #### `updateRule`
 
-<Method name="updateRule" args={[{ name: 'id', type: 'id' }, { name: 'fields', type: 'object' }]} returns="Promise<Rule>" />
+<Method name="updateRule" args={[{ name: 'rule', type: 'Rule' }]} returns="Promise<Rule>" />
 
-Update fields of a rule. `fields` can specify any field described in [`Rule`](#rule). Returns the updated rule.
+Update a rule. Unlike other update methods, this requires the full rule object including `id`. Returns the updated rule.
 
 #### `deleteRule`
 
@@ -637,7 +643,7 @@ Get all schedules. Returns an array of [`Schedule`](#schedule) objects.
 
 #### `createSchedule`
 
-<Method name="createSchedule" args={[{ properties: [{ name: 'schedule', type: 'Schedule' }] }]} returns="Promise<id>" />
+<Method name="createSchedule" args={[{ name: 'schedule', type: 'Schedule' }]} returns="Promise<id>" />
 
 Create schedule based on information filled in the schedule object. Please refer to notes of schedule object for details each field.
 
@@ -665,7 +671,7 @@ Update fields of a rule. `fields` can specify any field described in [`Schedule`
 
 #### `init`
 
-<Method name="init" args={[{ properties: [{ name: 'config', type: 'InitConfig' }] }]} returns="Promise<void>" />
+<Method name="init" args={[{ name: 'config', type: 'InitConfig' }]} returns="Promise<void>" />
 
 Initializes the API by connecting to an Actual Budget server.
 
@@ -689,7 +695,7 @@ Run the 3rd party (GoCardless, SimpleFIN) bank sync operation. This will downloa
 
 #### `runImport`
 
-<Method name="runImport" args={[{ properties: [{ name: 'budgetName', type: 'string' }, { name: 'func', type: 'func' }] }]} returns="Promise<void>" />
+<Method name="runImport" args={[{ name: 'budgetName', type: 'string' }, { name: 'func', type: 'func' }]} returns="Promise<void>" />
 
 Creates a new budget file with the given name, and then runs the custom importer function to populate it with data.
 
@@ -713,7 +719,7 @@ Load a budget file. If the file exists locally, it will load from there. Otherwi
 
 #### `batchBudgetUpdates`
 
-<Method name="batchBudgetUpdates" args={[{ properties: [{ name: 'func', type: 'func' }] }]} returns="Promise<void>" />
+<Method name="batchBudgetUpdates" args={[{ name: 'func', type: 'func' }]} returns="Promise<void>" />
 
 Performs a batch of budget updates. This is useful for making multiple changes to the budget in a single call to the server.
 
