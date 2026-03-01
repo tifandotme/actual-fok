@@ -120,6 +120,8 @@ Fields specific to a type of request are marked as such in the notes.
 
 All `update` and `delete` methods take an `id` to specify the desired object. `update` takes the fields to update as a second argument — it does not take a full object. That means even if a field is required, you don't have to pass it to `update`. For example, a `category` requires the `group_id` field, however `updateCategory(id, { name: "Food" })` is a valid call. Required means that an `update` can't set the field to `null` and a `create` must always contain the field.
 
+**Note:** `updateRule` is an exception — it requires the full [`Rule`](#rule) object including `id`, and returns `Promise<Rule>`.
+
 ## Primitives
 
 These are types.
@@ -671,9 +673,9 @@ Update fields of a rule. `fields` can specify any field described in [`Schedule`
 
 #### `init`
 
-<Method name="init" args={[{ name: 'config', type: 'InitConfig' }]} returns="Promise<void>" />
+<Method name="init" args={[{ name: 'config', type: 'InitConfig?' }]} returns="Promise<void>" />
 
-Initializes the API by connecting to an Actual Budget server.
+Initializes the API by connecting to an Actual Budget server. The config parameter is optional and defaults to `{}` (local-only mode).
 
 #### `shutdown`
 
